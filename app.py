@@ -1,21 +1,4 @@
-"""
-app.py
 
-Streamlit UI for the Fact-Check Agent.
-
-Responsibilities:
-1. Accept PDF upload
-2. Accept API keys (or use Streamlit secrets)
-3. Run the fact-check pipeline
-4. Display results
-
-All business logic lives in:
-- pdf_extractor.py
-- claim_extractor.py
-- web_verifier.py
-- verdict_engine.py
-- pipeline.py
-"""
 import os
 from dotenv import load_dotenv
 
@@ -75,7 +58,7 @@ openai_api_key = st.sidebar.text_input(
     placeholder="sk-..."
 )
 
-# Tavily key from .env (hidden from user)
+# Tavily key from .env 
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 
 if not tavily_api_key:
@@ -85,16 +68,14 @@ if not tavily_api_key:
 
 # Use secrets if available
 
-
 tavily_api_key = st.sidebar.text_input(
     "Tavily API Key",
     value=os.getenv("TAVILY_API_KEY", ""),
     type="password"
 )
 
-# --------------------------------------------------
+
 # PDF Upload
-# --------------------------------------------------
 
 uploaded_pdf = st.file_uploader(
     "Upload PDF",
@@ -117,17 +98,14 @@ if not uploaded_pdf:
 elif not openai_api_key:
     st.info("Enter your OpenAI API key to continue.")
 
-# --------------------------------------------------
+
 # Run Pipeline
-# --------------------------------------------------
 
 if run_button:
 
     try:
 
-        # ------------------------------------------
         # Extract PDF text
-        # ------------------------------------------
 
         with st.spinner("Reading PDF..."):
 
@@ -141,9 +119,8 @@ if run_button:
             )
             st.stop()
 
-        # ------------------------------------------
+        
         # Progress Tracking
-        # ------------------------------------------
 
         progress_bar = st.progress(
             0,
@@ -168,9 +145,8 @@ if run_button:
                 f"🔍 Verifying: *{claim_text}*"
             )
 
-        # ------------------------------------------
+        
         # Run Fact Check
-        # ------------------------------------------
 
         report = run_fact_check_pipeline(
             document_text=document_text,
@@ -186,9 +162,8 @@ if run_button:
 
         status_placeholder.empty()
 
-        # ------------------------------------------
+        
         # Empty Report
-        # ------------------------------------------
 
         if not report:
             st.warning(
@@ -197,9 +172,8 @@ if run_button:
             )
             st.stop()
 
-        # ------------------------------------------
+        
         # Summary Metrics
-        # ------------------------------------------
 
         verified_count = sum(
             1 for r in report
@@ -240,9 +214,7 @@ if run_button:
             false_count
         )
 
-        # ------------------------------------------
         # Detailed Report
-        # ------------------------------------------
 
         st.subheader("📋 Detailed Report")
 

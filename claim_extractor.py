@@ -1,28 +1,3 @@
-"""
-
-claim_extractor.py
-
-Extracts factual, verifiable claims from PDF text using Groq.
-
-The goal is high recall:
-- Statistics
-- Dates
-- Financial figures
-- Technical metrics
-- Company facts
-- Historical facts
-- User counts
-- Market claims
-
-Output:
-[
-    {
-        "claim_text": "...",
-        "claim_type": "statistic"
-    }
-]
-"""
-
 import json
 from openai import OpenAI
 

@@ -1,11 +1,3 @@
-"""
-pdf_extractor.py
-
-Job of this module: take an uploaded PDF file and return clean plain text.
-No LLM calls here, no web calls. Just file -> text.
-Keeping this separate means if we ever swap PDF libraries, nothing else
-in the app needs to change.
-"""
 
 from pypdf import PdfReader
 
@@ -33,7 +25,7 @@ def extract_text_from_pdf(uploaded_file) -> str:
     return full_text
 
 
-def chunk_text_if_too_long(text: str, max_chars: int = 12000) -> str:
+def chunk_text_if_too_long(text: str, max_chars: int = 30000) -> str:
     """
     Groq's LLM has a context limit. Most marketing PDFs are short,
     but just in case someone uploads something huge, we cut it down

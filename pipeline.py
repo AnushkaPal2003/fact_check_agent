@@ -1,21 +1,3 @@
-"""
-pipeline.py
-
-Orchestrates the complete fact-checking workflow:
-
-PDF Text
-    ↓
-Claim Extraction
-    ↓
-Web Verification
-    ↓
-Verdict Generation
-    ↓
-Final Report
-
-This module contains no UI code and no PDF parsing logic.
-"""
-
 from claim_extractor import extract_claims
 from web_verifier import search_evidence_for_claim
 from verdict_engine import judge_claim
@@ -52,9 +34,7 @@ def run_fact_check_pipeline(
         ]
     """
 
-    # --------------------------------------------------
     # Step 1: Extract claims
-    # --------------------------------------------------
 
     claims = extract_claims(
         document_text=document_text,
@@ -71,10 +51,9 @@ def run_fact_check_pipeline(
 
     total_claims = len(claims)
 
-    # --------------------------------------------------
+    
     # Step 2 + 3:
     # Search evidence and judge verdict
-    # --------------------------------------------------
 
     for index, claim in enumerate(claims):
 
@@ -94,18 +73,14 @@ def run_fact_check_pipeline(
 
         try:
 
-            # ------------------------------------------
             # Search web evidence
-            # ------------------------------------------
 
             evidence = search_evidence_for_claim(
                 claim_text=claim_text,
                 tavily_api_key=tavily_api_key,
             )
 
-            # ------------------------------------------
             # Generate verdict
-            # ------------------------------------------
 
             verdict_data = judge_claim(
                 claim_text=claim_text,

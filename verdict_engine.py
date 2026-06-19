@@ -1,16 +1,3 @@
-"""
-verdict_engine.py
-
-Job of this module: given ONE claim and the web evidence we found for it,
-ask the LLM to decide a verdict:
-  - Verified   -> evidence confirms the claim is currently accurate
-  - Inaccurate -> claim was true at some point but is outdated now
-  - False      -> no evidence supports it / evidence contradicts it
-
-The LLM also has to explain WHY, and give the correct current fact when
-the claim is wrong. This is what makes the report useful instead of just
-a red/green flag with no explanation.
-"""
 
 import json
 from openai import OpenAI
@@ -91,8 +78,7 @@ def judge_claim(claim_text: str, evidence: list[dict], openai_api_key: str) -> d
     try:
         verdict_data = json.loads(raw_output)
     except json.JSONDecodeError:
-        # Fail safe: if the LLM output breaks, don't crash the app --
-        # just mark it as unable to verify.
+        
         verdict_data = {
             "verdict": "False",
             "correct_fact": "Could not be determined (verification error).",

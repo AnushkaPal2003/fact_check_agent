@@ -1,16 +1,4 @@
-"""
-web_verifier.py
 
-Job of this module: take ONE claim and search the live web for evidence
-about whether it's true, outdated, or false. Uses Tavily, which is a
-search API built specifically for feeding clean results to LLMs (no
-messy HTML scraping needed).
-
-This module does NOT decide if the claim is true -- it only fetches
-evidence. The decision happens in verdict_engine.py. Keeping "fetch
-evidence" and "judge evidence" as separate steps makes each one easier
-to test and debug on its own.
-"""
 
 from tavily import TavilyClient
 
