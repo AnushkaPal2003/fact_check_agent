@@ -1,7 +1,7 @@
 streamlit
 openai
 tavily-python
-pymupdf
+pypdf
 pandas
 dotenv
 reportlab
